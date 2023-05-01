@@ -58,6 +58,7 @@ namespace Hpdi.Vss2Git
         }
 
         public event EventHandler Idle;
+        public event EventHandler<ExpThrownEventArgs> ThrowException;
 
         public void WaitIdle()
         {
@@ -157,6 +158,15 @@ namespace Hpdi.Vss2Git
         protected override void OnException(WaitCallback work, Exception e)
         {
             base.OnException(work, e);
+
+            var handler = ThrowException;
+            if (handler != null)
+            {
+                ExpThrownEventArgs eventArgs = new ExpThrownEventArgs();
+                eventArgs.Exception = e;
+                handler(this, eventArgs);
+            }
+
             lock (workExceptions)
             {
                 workExceptions.AddLast(e);
@@ -182,5 +192,10 @@ namespace Hpdi.Vss2Git
                 }
             }
         }
+    }
+
+    public class ExpThrownEventArgs : EventArgs
+    {
+        public Exception Exception { get; set; }
     }
 }

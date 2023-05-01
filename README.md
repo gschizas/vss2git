@@ -1,3 +1,36 @@
+## New Behavior 
+
+This fork adds a command line interface to this tool.  
+This allows for creating scripts that can call this tool programmatically if needed.
+
+## CLI Usage
+To use this application in "headless" CLI mode you simply call the vss2git executable and a pass it a plain text file that defines all the parameters of your conversion request. 
+
+If you dont pass any arguments when calling the executable, it will launch the GUI as normal.
+
+Example argument text file.
+```
+VSS_DIRECTORY=C:\Users\username\path\to\backup\vss-backup
+VSS_PROJECT=$/ProjectName
+VSS_EXCLUDE_PATHS=
+ENCODING=1252
+GIT_DIRECTORY=C:\Users\username\path\to\target\git\repo\git_repo
+DEFAULT_EMAIL_DOMAIN=company.net
+DEFAULT_COMMENT=
+LOG_FILE=C:\Users\username\path\to\log\file\Vss2Git.log
+TRANSCODE_COMMENTS=True
+FORCE_ANNOTATED_TAGS=True
+IGNORE_GIT_ERRORS=True
+ANY_COMMENT_SECONDS=15
+SAME_COMMENT_SECONDS=600
+```
+Encoding is specified as [Code Page number](https://learn.microsoft.com/en-us/dotnet/api/system.text.encoding?view=net-8.0#list-of-encodings)
+  
+.  
+.  
+.  
+
+## Original Readme.md
 > :warning: **This project is no longer actively maintained or supported.** You can open issues to record, share, and discuss them, but **please do not expect anyone else to act on them.** Because there are no regression tests or automated builds, **pull requests will likely never be merged.** If you would like to implement automated tests and builds, please contact me about becoming a maintainer.
 
 ## What is it? ##

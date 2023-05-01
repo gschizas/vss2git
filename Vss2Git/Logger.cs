@@ -65,6 +65,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(char value)
@@ -73,6 +74,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(char[] buffer)
@@ -81,6 +83,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(buffer, 0, buffer.Length);
             }
+            Console.Write(buffer);
         }
 
         public void Write(decimal value)
@@ -89,6 +92,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(double value)
@@ -97,6 +101,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(float value)
@@ -105,6 +110,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(int value)
@@ -113,6 +119,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(long value)
@@ -121,6 +128,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(object value)
@@ -129,6 +137,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(string value)
@@ -138,6 +147,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value);
                 baseStream.Flush();
             }
+            Console.Write(value);
         }
 
         public void Write(uint value)
@@ -146,6 +156,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(ulong value)
@@ -154,6 +165,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(value.ToString());
             }
+            Console.Write(value);
         }
 
         public void Write(string format, params object[] arg)
@@ -162,6 +174,7 @@ namespace Hpdi.Vss2Git
             {
                 Write(string.Format(formatProvider, format, arg));
             }
+            Console.Write(string.Format(formatProvider, format, arg));
         }
 
         public void Write(char[] buffer, int index, int count)
@@ -171,11 +184,13 @@ namespace Hpdi.Vss2Git
                 WriteInternal(buffer, index, count);
                 baseStream.Flush();
             }
+            Console.Write(buffer);
         }
 
         public void WriteLine()
         {
             Write(Environment.NewLine);
+            Console.WriteLine();
         }
 
         public void WriteLine(bool value)
@@ -185,6 +200,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value);
         }
 
         public void WriteLine(char value)
@@ -194,6 +210,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value);
         }
 
         public void WriteLine(char[] buffer)
@@ -203,6 +220,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(buffer, 0, buffer.Length);
                 WriteLine();
             }
+            Console.WriteLine(buffer);
         }
 
         public void WriteLine(decimal value)
@@ -212,6 +230,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value);
         }
 
         public void WriteLine(double value)
@@ -221,6 +240,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine();
         }
 
         public void WriteLine(float value)
@@ -230,6 +250,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value);
         }
 
         public void WriteLine(int value)
@@ -239,6 +260,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value);
         }
 
         public void WriteLine(long value)
@@ -248,6 +270,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value);
         }
 
         public void WriteLine(object value)
@@ -257,6 +280,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value);
         }
 
         public void WriteLine(string value)
@@ -266,6 +290,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value);
                 WriteLine();
             }
+            Console.WriteLine(value);
         }
 
         public void WriteLine(uint value)
@@ -275,6 +300,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value.ToString());
         }
 
         public void WriteLine(ulong value)
@@ -284,6 +310,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(value.ToString());
                 WriteLine();
             }
+            Console.WriteLine(value.ToString());
         }
 
         public void WriteLine(string format, params object[] arg)
@@ -293,6 +320,7 @@ namespace Hpdi.Vss2Git
                 WriteInternal(string.Format(formatProvider, format, arg));
                 WriteLine();
             }
+            Console.WriteLine(string.Format(formatProvider, format, arg));
         }
 
         public void WriteLine(char[] buffer, int index, int count)
@@ -302,11 +330,13 @@ namespace Hpdi.Vss2Git
                 WriteInternal(buffer, index, count);
                 WriteLine();
             }
+            Console.WriteLine(buffer);
         }
 
         public void WriteSectionSeparator()
         {
             WriteLine(sectionSeparator);
+            Console.WriteLine(sectionSeparator);
         }
 
         private void WriteInternal(string value)

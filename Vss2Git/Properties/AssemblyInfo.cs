@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Vss2Git")]
+[assembly: AssemblyTitle("cVss2Gt")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HPDI, LLC")]
-[assembly: AssemblyProduct("Vss2Git")]
+[assembly: AssemblyProduct("cVss2Git")]
 [assembly: AssemblyCopyright("Copyright ©  2009 HPDI, LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
