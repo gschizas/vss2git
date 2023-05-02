@@ -1,10 +1,9 @@
 ## New Behavior 
 
-This fork adds a command line interface to this tool.  
-This allows for creating scripts that can call this tool programmatically if needed.
+This fork adds a command line interface to vss2git, allowing you to create scripts that can call this tool programmatically if needed.
 
 ## CLI Usage
-To use this application in "headless" CLI mode you simply call the vss2git executable and a pass it a plain text file that defines all the parameters of your conversion request. 
+To use this application in "headless" CLI mode you simply call the vss2git executable and pass it a plain text file that defines all the parameters of your conversion request. 
 
 If you dont pass any arguments when calling the executable, it will launch the GUI as normal.
 
