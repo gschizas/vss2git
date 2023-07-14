@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 
 namespace Hpdi.Vss2Git
@@ -31,12 +32,8 @@ namespace Hpdi.Vss2Git
         private readonly LinkedList<Exception> workExceptions = new LinkedList<Exception>();
         private readonly Dictionary<object, string> workStatuses = new Dictionary<object, string>();
         private object lastStatusWork;
-        private string lastStatus;
 
-        public string LastStatus
-        {
-            get { return lastStatus; }
-        }
+        public string LastStatus { get; private set; }
 
         public WorkQueue()
         {
@@ -47,15 +44,9 @@ namespace Hpdi.Vss2Git
         {
         }
 
-        public TimeSpan ActiveTime
-        {
-            get { return stopwatch.Elapsed; }
-        }
+        public TimeSpan ActiveTime => stopwatch.Elapsed;
 
-        public WaitHandle IdleEvent
-        {
-            get { return idleEvent; }
-        }
+        public WaitHandle IdleEvent => idleEvent;
 
         public event EventHandler Idle;
         public event EventHandler<ExpThrownEventArgs> ThrowException;
@@ -69,15 +60,12 @@ namespace Hpdi.Vss2Git
         {
             lock (workExceptions)
             {
-                if (workExceptions.Count > 0)
-                {
+                if (workExceptions.Count <= 0) return null;
                     var result = new List<Exception>(workExceptions);
                     workExceptions.Clear();
                     return result;
                 }
             }
-            return null;
-        }
 
         public string GetStatus(object work)
         {
@@ -95,8 +83,7 @@ namespace Hpdi.Vss2Git
             {
                 // only allow status to be set if key is already present,
                 // so we know that it will be removed in OnStop
-                if (workStatuses.ContainsKey(work))
-                {
+                if (!workStatuses.ContainsKey(work)) return;
                     workStatuses[work] = status;
                     if (string.IsNullOrEmpty(status))
                     {
@@ -105,8 +92,7 @@ namespace Hpdi.Vss2Git
                     else
                     {
                         lastStatusWork = work;
-                        lastStatus = status;
-                    }
+                    LastStatus = status;
                 }
             }
         }
@@ -130,10 +116,7 @@ namespace Hpdi.Vss2Git
             idleEvent.Set();
 
             var handler = Idle;
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-            }
+            handler?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void OnStart(WaitCallback work)
@@ -162,8 +145,7 @@ namespace Hpdi.Vss2Git
             var handler = ThrowException;
             if (handler != null)
             {
-                ExpThrownEventArgs eventArgs = new ExpThrownEventArgs();
-                eventArgs.Exception = e;
+                var eventArgs = new ExpThrownEventArgs { Exception = e };
                 handler(this, eventArgs);
             }
 
@@ -176,23 +158,18 @@ namespace Hpdi.Vss2Git
         // Assumes work status lock is held.
         private void WorkStatusCleared(object work)
         {
-            if (work == lastStatusWork)
-            {
+            if (work != lastStatusWork) return;
                 lastStatusWork = null;
-                lastStatus = null;
+            LastStatus = null;
 
-                foreach (var entry in workStatuses)
-                {
-                    if (!string.IsNullOrEmpty(entry.Value))
+            foreach (var entry in workStatuses.Where(entry => !string.IsNullOrEmpty(entry.Value)))
                     {
                         lastStatusWork = entry.Key;
-                        lastStatus = entry.Value;
+                LastStatus = entry.Value;
                         break;
                     }
                 }
             }
-        }
-    }
 
     public class ExpThrownEventArgs : EventArgs
     {

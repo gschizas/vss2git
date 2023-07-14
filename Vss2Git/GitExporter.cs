@@ -97,8 +97,7 @@ namespace Hpdi.Vss2Git
                     Directory.CreateDirectory(repoPath);
                 }
 
-                var git = new GitWrapper(repoPath, logger);
-                git.CommitEncoding = commitEncoding;
+                var git = new GitWrapper(repoPath, logger) { CommitEncoding = commitEncoding };
 
                 while (!git.FindExecutable())
                 {
@@ -106,12 +105,10 @@ namespace Hpdi.Vss2Git
                         "If you need to modify your PATH variable, please " +
                         "restart the program for the changes to take effect.",
                         "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                    if (button == DialogResult.Cancel)
-                    {
+                    if (button != DialogResult.Cancel) continue;
                         workQueue.Abort();
                         return;
                     }
-                }
 
                 if (!RetryCancel(delegate { git.Init(); }))
                 {
@@ -145,8 +142,7 @@ namespace Hpdi.Vss2Git
                 tagsUsed.Clear();
                 foreach (var changeset in changesets)
                 {
-                    var changesetDesc = string.Format(CultureInfo.InvariantCulture,
-                        "changeset {0} from {1}", changesetId, changeset.DateTime);
+                    var changesetDesc = string.Format(CultureInfo.InvariantCulture, "changeset {0} from {1}", changesetId, changeset.DateTime);
 
                     // replay each revision in changeset
                     LogStatus(work, "Replaying " + changesetDesc);
@@ -185,7 +181,7 @@ namespace Hpdi.Vss2Git
                     // create tags for any labels in the changeset
                     if (labels.Count > 0)
                     {
-                        foreach (Revision label in labels)
+                        foreach (var label in labels)
                         {
                             var labelName = ((VssLabelAction)label.Action).Label;
                             if (string.IsNullOrEmpty(labelName))

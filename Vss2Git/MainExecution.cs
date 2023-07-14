@@ -31,8 +31,7 @@ namespace Hpdi.Vss2Git
         {
             get
             {
-                if (instance == null)
-                {
+                if (instance != null) return instance;
                     lock (padlock)
                     {
                         if (instance == null)
@@ -40,7 +39,6 @@ namespace Hpdi.Vss2Git
                             instance = new MainExecution();
                         }
                     }
-                }
                 return instance;
             }
         }
@@ -63,7 +61,7 @@ namespace Hpdi.Vss2Git
 
                 logger.WriteLine("VSS2Git version {0}", Assembly.GetExecutingAssembly().GetName().Version);
 
-                Encoding encoding = Encoding.GetEncoding(Settings.Encoding);
+                var encoding = Encoding.GetEncoding(Settings.Encoding);
 
                 logger.WriteLine("VSS encoding: {0} (CP: {1}, IANA: {2})",
                     encoding.EncodingName, encoding.CodePage, encoding.WebName);
@@ -77,22 +75,9 @@ namespace Hpdi.Vss2Git
                 var db = df.Open();
 
                 var path = Settings.VssProject;
-                VssItem item;
-                try
-                {
-                    item = db.GetItem(path);
-                }
-                catch (VssPathException ex)
-                {
-                    throw ex;
-                }
+                var item = db.GetItem(path);
 
-                var project = item as VssProject;
-                if (project == null)
-                {
-                    throw new VssPathException(string.Format("{0} is not a project", path));
-                }
-
+                var project = item as VssProject ?? throw new VssPathException($"{path} is not a project");
                 revisionAnalyzer = new RevisionAnalyzer(workQueue, logger, db);
                 if (!string.IsNullOrEmpty(Settings.VssExcludePaths))
                 {
@@ -100,9 +85,11 @@ namespace Hpdi.Vss2Git
                 }
                 revisionAnalyzer.AddItem(project);
 
-                changesetBuilder = new ChangesetBuilder(workQueue, logger, revisionAnalyzer);
-                changesetBuilder.AnyCommentThreshold = TimeSpan.FromSeconds((double)Settings.AnyCommentSeconds);
-                changesetBuilder.SameCommentThreshold = TimeSpan.FromSeconds((double)Settings.SameCommentSeconds);
+                changesetBuilder = new ChangesetBuilder(workQueue, logger, revisionAnalyzer)
+                {
+                    AnyCommentThreshold = TimeSpan.FromSeconds(Settings.AnyCommentSeconds),
+                    SameCommentThreshold = TimeSpan.FromSeconds(Settings.SameCommentSeconds)
+                };
                 changesetBuilder.BuildChangesets();
 
                 if (!string.IsNullOrEmpty(Settings.GitDirectory))
@@ -137,7 +124,7 @@ namespace Hpdi.Vss2Git
             {
                 logger.Dispose();
                 logger = Logger.Null;
-                throw ex;
+                throw;
             }
         }
 
@@ -174,42 +161,27 @@ namespace Hpdi.Vss2Git
 
         public bool isWorkQueueIdle()
         {
-            if (workQueue != null)
-            {
-                return workQueue.IsIdle;
-            }
-
-            return false;
+            return workQueue != null && workQueue.IsIdle;
         }
 
         public int getRevAnalyzerFileCount()
         {
-            if (revisionAnalyzer != null)
-            {
-                return revisionAnalyzer.FileCount;
-            }
-
-            return 0;
+            return revisionAnalyzer?.FileCount ?? 0;
         }
 
         public int getRevAnalyzerRevCount()
         {
-            if (revisionAnalyzer != null)
-            {
-                return revisionAnalyzer.RevisionCount;
-            }
-
-            return 0;
+            return revisionAnalyzer?.RevisionCount ?? 0;
         }
 
         public int getChangesetCount()
         {
-            if (changesetBuilder != null)
-            {
-                return changesetBuilder.Changesets.Count;
+            return changesetBuilder == null ? 0 : changesetBuilder.Changesets.Count;
             }
 
-            return 0;
+        public int getChangesetId()
+        {
+            return workQueue.ChangesetId;
         }
 
         public void nullifyObjs()

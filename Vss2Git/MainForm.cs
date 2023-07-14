@@ -75,14 +75,13 @@ namespace Hpdi.Vss2Git
             }
 
             var exceptions = MainExecution.Instance.getWorkQueueExceptions();
-            if (exceptions != null)
-            {
+            if (exceptions == null) return;
+
                 foreach (var exception in exceptions)
                 {
                     ShowException(exception);
                 }
             }
-        }
 
         private void ShowException(Exception exception)
         {

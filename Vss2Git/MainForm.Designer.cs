@@ -48,6 +48,7 @@
             this.changeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.timeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.outputGroupBox = new System.Windows.Forms.GroupBox();
+            this.ignoreErrorsCheckBox = new System.Windows.Forms.CheckBox();
             this.commentTextBox = new System.Windows.Forms.TextBox();
             this.commentLabel = new System.Windows.Forms.Label();
             this.forceAnnotatedCheckBox = new System.Windows.Forms.CheckBox();
@@ -66,7 +67,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.anyCommentUpDown = new System.Windows.Forms.NumericUpDown();
-            this.ignoreErrorsCheckBox = new System.Windows.Forms.CheckBox();
             this.vssGroupBox.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.outputGroupBox.SuspendLayout();
@@ -77,8 +77,8 @@
             // 
             // vssGroupBox
             // 
-            this.vssGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.vssGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.vssGroupBox.Controls.Add(this.encodingLabel);
             this.vssGroupBox.Controls.Add(this.encodingComboBox);
             this.vssGroupBox.Controls.Add(this.excludeTextBox);
@@ -105,8 +105,8 @@
             // 
             // encodingComboBox
             // 
-            this.encodingComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.encodingComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.encodingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.encodingComboBox.FormattingEnabled = true;
             this.encodingComboBox.Location = new System.Drawing.Point(94, 97);
@@ -116,8 +116,8 @@
             // 
             // excludeTextBox
             // 
-            this.excludeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.excludeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.excludeTextBox.Location = new System.Drawing.Point(94, 71);
             this.excludeTextBox.Name = "excludeTextBox";
             this.excludeTextBox.Size = new System.Drawing.Size(460, 20);
@@ -134,8 +134,8 @@
             // 
             // vssProjectTextBox
             // 
-            this.vssProjectTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.vssProjectTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.vssProjectTextBox.Location = new System.Drawing.Point(94, 45);
             this.vssProjectTextBox.Name = "vssProjectTextBox";
             this.vssProjectTextBox.Size = new System.Drawing.Size(460, 20);
@@ -143,8 +143,8 @@
             // 
             // vssDirTextBox
             // 
-            this.vssDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.vssDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.vssDirTextBox.Location = new System.Drawing.Point(94, 19);
             this.vssDirTextBox.Name = "vssDirTextBox";
             this.vssDirTextBox.Size = new System.Drawing.Size(460, 20);
@@ -185,22 +185,24 @@
             // 
             // statusStrip
             // 
+            this.statusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel,
             this.fileLabel,
             this.revisionLabel,
             this.changeLabel,
-            this.timeLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 407);
+            this.timeLabel,
+            this.endTimeLabel});
+            this.statusStrip.Location = new System.Drawing.Point(0, 397);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(584, 22);
+            this.statusStrip.Size = new System.Drawing.Size(584, 32);
             this.statusStrip.TabIndex = 5;
             this.statusStrip.Text = "statusStrip1";
             // 
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(284, 17);
+            this.statusLabel.Size = new System.Drawing.Size(1, 25);
             this.statusLabel.Spring = true;
             this.statusLabel.Text = "Idle";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -208,31 +210,31 @@
             // fileLabel
             // 
             this.fileLabel.Name = "fileLabel";
-            this.fileLabel.Size = new System.Drawing.Size(42, 17);
+            this.fileLabel.Size = new System.Drawing.Size(65, 25);
             this.fileLabel.Text = "Files: 0";
             // 
             // revisionLabel
             // 
             this.revisionLabel.Name = "revisionLabel";
-            this.revisionLabel.Size = new System.Drawing.Size(68, 17);
+            this.revisionLabel.Size = new System.Drawing.Size(104, 25);
             this.revisionLabel.Text = "Revisions: 0";
             // 
             // changeLabel
             // 
             this.changeLabel.Name = "changeLabel";
-            this.changeLabel.Size = new System.Drawing.Size(80, 17);
+            this.changeLabel.Size = new System.Drawing.Size(122, 25);
             this.changeLabel.Text = "Changesets: 0";
             // 
             // timeLabel
             // 
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(95, 17);
+            this.timeLabel.Size = new System.Drawing.Size(150, 25);
             this.timeLabel.Text = "Elapsed: 00:00:00";
             // 
             // outputGroupBox
             // 
-            this.outputGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.outputGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.outputGroupBox.Controls.Add(this.ignoreErrorsCheckBox);
             this.outputGroupBox.Controls.Add(this.commentTextBox);
             this.outputGroupBox.Controls.Add(this.commentLabel);
@@ -251,6 +253,17 @@
             this.outputGroupBox.TabStop = false;
             this.outputGroupBox.Text = "Output Settings";
             // 
+            // ignoreErrorsCheckBox
+            // 
+            this.ignoreErrorsCheckBox.AutoSize = true;
+            this.ignoreErrorsCheckBox.Location = new System.Drawing.Point(417, 123);
+            this.ignoreErrorsCheckBox.Name = "ignoreErrorsCheckBox";
+            this.ignoreErrorsCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ignoreErrorsCheckBox.Size = new System.Drawing.Size(108, 21);
+            this.ignoreErrorsCheckBox.TabIndex = 8;
+            this.ignoreErrorsCheckBox.Text = "Ignore Git errors";
+            this.ignoreErrorsCheckBox.UseVisualStyleBackColor = true;
+            // 
             // commentTextBox
             // 
             this.commentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -265,7 +278,7 @@
             this.commentLabel.AutoSize = true;
             this.commentLabel.Location = new System.Drawing.Point(6, 100);
             this.commentLabel.Name = "commentLabel";
-            this.commentLabel.Size = new System.Drawing.Size(88, 13);
+            this.commentLabel.Size = new System.Drawing.Size(87, 13);
             this.commentLabel.TabIndex = 8;
             this.commentLabel.Text = "Default comment";
             // 
@@ -276,7 +289,7 @@
             this.forceAnnotatedCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.forceAnnotatedCheckBox.Location = new System.Drawing.Point(224, 123);
             this.forceAnnotatedCheckBox.Name = "forceAnnotatedCheckBox";
-            this.forceAnnotatedCheckBox.Size = new System.Drawing.Size(191, 17);
+            this.forceAnnotatedCheckBox.Size = new System.Drawing.Size(198, 21);
             this.forceAnnotatedCheckBox.TabIndex = 7;
             this.forceAnnotatedCheckBox.Text = "Force use of annotated tag objects";
             this.forceAnnotatedCheckBox.UseVisualStyleBackColor = true;
@@ -288,15 +301,15 @@
             this.transcodeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.transcodeCheckBox.Location = new System.Drawing.Point(9, 123);
             this.transcodeCheckBox.Name = "transcodeCheckBox";
-            this.transcodeCheckBox.Size = new System.Drawing.Size(209, 17);
+            this.transcodeCheckBox.Size = new System.Drawing.Size(216, 21);
             this.transcodeCheckBox.TabIndex = 6;
             this.transcodeCheckBox.Text = "Transcode commit comments to UTF-8";
             this.transcodeCheckBox.UseVisualStyleBackColor = true;
             // 
             // domainTextBox
             // 
-            this.domainTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.domainTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.domainTextBox.Location = new System.Drawing.Point(94, 45);
             this.domainTextBox.Name = "domainTextBox";
             this.domainTextBox.Size = new System.Drawing.Size(460, 20);
@@ -313,8 +326,8 @@
             // 
             // outDirTextBox
             // 
-            this.outDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.outDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.outDirTextBox.Location = new System.Drawing.Point(94, 19);
             this.outDirTextBox.Name = "outDirTextBox";
             this.outDirTextBox.Size = new System.Drawing.Size(460, 20);
@@ -331,8 +344,8 @@
             // 
             // logTextBox
             // 
-            this.logTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.logTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.logTextBox.Location = new System.Drawing.Point(94, 71);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.Size = new System.Drawing.Size(460, 20);
@@ -433,17 +446,6 @@
             this.anyCommentUpDown.Name = "anyCommentUpDown";
             this.anyCommentUpDown.Size = new System.Drawing.Size(54, 20);
             this.anyCommentUpDown.TabIndex = 1;
-            //
-            // ignoreErrorsCheckBox
-            //
-            this.ignoreErrorsCheckBox.AutoSize = true;
-            this.ignoreErrorsCheckBox.Location = new System.Drawing.Point(422, 97);
-            this.ignoreErrorsCheckBox.Name = "ignoreErrorsCheckBox";
-            this.ignoreErrorsCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ignoreErrorsCheckBox.Size = new System.Drawing.Size(101, 17);
-            this.ignoreErrorsCheckBox.TabIndex = 8;
-            this.ignoreErrorsCheckBox.Text = "Ignore Git errors";
-            this.ignoreErrorsCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -463,8 +465,8 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VSS2Git";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.vssGroupBox.ResumeLayout(false);
             this.vssGroupBox.PerformLayout();
             this.statusStrip.ResumeLayout(false);
