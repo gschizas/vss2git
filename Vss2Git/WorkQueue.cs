@@ -45,6 +45,7 @@ namespace Hpdi.Vss2Git
         }
 
         public TimeSpan ActiveTime => stopwatch.Elapsed;
+        public int ChangesetId { get; set; }
 
         public WaitHandle IdleEvent => idleEvent;
 
@@ -61,11 +62,11 @@ namespace Hpdi.Vss2Git
             lock (workExceptions)
             {
                 if (workExceptions.Count <= 0) return null;
-                    var result = new List<Exception>(workExceptions);
-                    workExceptions.Clear();
-                    return result;
-                }
+                var result = new List<Exception>(workExceptions);
+                workExceptions.Clear();
+                return result;
             }
+        }
 
         public string GetStatus(object work)
         {
@@ -84,14 +85,14 @@ namespace Hpdi.Vss2Git
                 // only allow status to be set if key is already present,
                 // so we know that it will be removed in OnStop
                 if (!workStatuses.ContainsKey(work)) return;
-                    workStatuses[work] = status;
-                    if (string.IsNullOrEmpty(status))
-                    {
-                        WorkStatusCleared(work);
-                    }
-                    else
-                    {
-                        lastStatusWork = work;
+                workStatuses[work] = status;
+                if (string.IsNullOrEmpty(status))
+                {
+                    WorkStatusCleared(work);
+                }
+                else
+                {
+                    lastStatusWork = work;
                     LastStatus = status;
                 }
             }
@@ -159,17 +160,17 @@ namespace Hpdi.Vss2Git
         private void WorkStatusCleared(object work)
         {
             if (work != lastStatusWork) return;
-                lastStatusWork = null;
+            lastStatusWork = null;
             LastStatus = null;
 
             foreach (var entry in workStatuses.Where(entry => !string.IsNullOrEmpty(entry.Value)))
-                    {
-                        lastStatusWork = entry.Key;
+            {
+                lastStatusWork = entry.Key;
                 LastStatus = entry.Value;
-                        break;
-                    }
-                }
+                break;
             }
+        }
+    }
 
     public class ExpThrownEventArgs : EventArgs
     {

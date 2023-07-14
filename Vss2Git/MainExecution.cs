@@ -32,13 +32,13 @@ namespace Hpdi.Vss2Git
             get
             {
                 if (instance != null) return instance;
-                    lock (padlock)
+                lock (padlock)
+                {
+                    if (instance == null)
                     {
-                        if (instance == null)
-                        {
-                            instance = new MainExecution();
-                        }
+                        instance = new MainExecution();
                     }
+                }
                 return instance;
             }
         }
@@ -150,9 +150,9 @@ namespace Hpdi.Vss2Git
         {
             return workQueue.LastStatus;
         }
-        public DateTime getElapsedTime()
+        public TimeSpan getElapsedTime()
         {
-            return new DateTime(workQueue.ActiveTime.Ticks);
+            return new TimeSpan(workQueue.ActiveTime.Ticks);
         }
         public ICollection<Exception> getWorkQueueExceptions()
         {
@@ -177,7 +177,7 @@ namespace Hpdi.Vss2Git
         public int getChangesetCount()
         {
             return changesetBuilder == null ? 0 : changesetBuilder.Changesets.Count;
-            }
+        }
 
         public int getChangesetId()
         {

@@ -84,7 +84,7 @@ namespace Hpdi.Vss2Git
 
         public void ExportToGit(string repoPath)
         {
-            workQueue.AddLast(delegate(object work)
+            workQueue.AddLast(delegate (object work)
             {
                 var stopwatch = Stopwatch.StartNew();
 
@@ -106,9 +106,9 @@ namespace Hpdi.Vss2Git
                         "restart the program for the changes to take effect.",
                         "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                     if (button != DialogResult.Cancel) continue;
-                        workQueue.Abort();
-                        return;
-                    }
+                    workQueue.Abort();
+                    return;
+                }
 
                 if (!RetryCancel(delegate { git.Init(); }))
                 {
@@ -142,6 +142,7 @@ namespace Hpdi.Vss2Git
                 tagsUsed.Clear();
                 foreach (var changeset in changesets)
                 {
+                    workQueue.ChangesetId = changesetId;
                     var changesetDesc = string.Format(CultureInfo.InvariantCulture, "changeset {0} from {1}", changesetId, changeset.DateTime);
 
                     // replay each revision in changeset

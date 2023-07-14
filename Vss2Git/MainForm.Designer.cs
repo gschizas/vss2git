@@ -67,6 +67,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.anyCommentUpDown = new System.Windows.Forms.NumericUpDown();
+            this.endTimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.vssGroupBox.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.outputGroupBox.SuspendLayout();
@@ -447,6 +448,12 @@
             this.anyCommentUpDown.Size = new System.Drawing.Size(54, 20);
             this.anyCommentUpDown.TabIndex = 1;
             // 
+            // endTimeLabel
+            // 
+            this.endTimeLabel.Name = "endTimeLabel";
+            this.endTimeLabel.Size = new System.Drawing.Size(139, 25);
+            this.endTimeLabel.Text = "End at: 00:00:00";
+            // 
             // MainForm
             // 
             this.AcceptButton = this.goButton;
@@ -521,6 +528,7 @@
         private System.Windows.Forms.CheckBox ignoreErrorsCheckBox;
         private System.Windows.Forms.TextBox commentTextBox;
         private System.Windows.Forms.Label commentLabel;
+        private System.Windows.Forms.ToolStripStatusLabel endTimeLabel;
     }
 }
 

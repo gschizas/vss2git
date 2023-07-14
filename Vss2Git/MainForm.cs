@@ -59,12 +59,19 @@ namespace Hpdi.Vss2Git
         private void statusTimer_Tick(object sender, EventArgs e)
         {
             statusLabel.Text = MainExecution.Instance.getWorkQueueLastStatus() ?? "Idle";
-            timeLabel.Text = string.Format("Elapsed: {0:HH:mm:ss}",
-                MainExecution.Instance.getElapsedTime());
+            var elapsedTime = MainExecution.Instance.getElapsedTime();
+            timeLabel.Text = $"Elapsed: {elapsedTime:d'd 'hh':'mm':'ss}";
+            var changesetId = MainExecution.Instance.getChangesetId();
+            var changesetCount = MainExecution.Instance.getChangesetCount();
+            if (changesetId > 0)
+            {
+                var endTime = DateTime.Now.AddTicks(elapsedTime.Ticks * (changesetCount / changesetId));
+                endTimeLabel.Text = $"End at: {endTime: ddd dd/MM HH:mm:ss}";
+            }
 
-            fileLabel.Text = "Files: " + MainExecution.Instance.getRevAnalyzerFileCount();
-            revisionLabel.Text = "Revisions: " + MainExecution.Instance.getRevAnalyzerRevCount();
-            changeLabel.Text = "Changesets: " + MainExecution.Instance.getChangesetCount();
+            fileLabel.Text = $"Files: {MainExecution.Instance.getRevAnalyzerFileCount()}";
+            revisionLabel.Text = $"Revisions: {MainExecution.Instance.getRevAnalyzerRevCount()}";
+            changeLabel.Text = $"Changesets: {changesetCount}";
 
             if (MainExecution.Instance.isWorkQueueIdle())
             {
@@ -77,11 +84,11 @@ namespace Hpdi.Vss2Git
             var exceptions = MainExecution.Instance.getWorkQueueExceptions();
             if (exceptions == null) return;
 
-                foreach (var exception in exceptions)
-                {
-                    ShowException(exception);
-                }
+            foreach (var exception in exceptions)
+            {
+                ShowException(exception);
             }
+        }
 
         private void ShowException(Exception exception)
         {
